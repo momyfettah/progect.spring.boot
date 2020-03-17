@@ -1,5 +1,7 @@
 package net.java.springboot.springsecurity.web.dto;
 
+import java.time.LocalDate;
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -17,13 +19,16 @@ public class UserRegistrationDto {
 
     @NotEmpty
     private String lastName;
+    
+    @NotEmpty
+    private String birthday;
 
     @NotEmpty
     private String password;
 
     @NotEmpty
     private String confirmPassword;
-
+    
     @Email
     @NotEmpty
     private String email;
@@ -50,6 +55,14 @@ public class UserRegistrationDto {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+    
+    public String getBirthday() {
+		return birthday;
+	}
 
     public String getPassword() {
         return password;
@@ -90,4 +103,6 @@ public class UserRegistrationDto {
     public void setTerms(Boolean terms) {
         this.terms = terms;
     }
+
+
 }

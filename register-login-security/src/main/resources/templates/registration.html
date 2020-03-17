@@ -51,6 +51,10 @@
                         <label for="lastName" class="control-label">Last name</label> <input id="lastName" class="form-control" th:field="*{lastName}" />
                         <p class="error-message" th:each="error : ${#fields.errors('lastName')}" th:text="${error}">Validation error</p>
                     </div>
+                     <div class="form-group" th:classappend="${#fields.hasErrors('birthday')}? 'has-error':''">
+                        <label for="birthday" class="control-label">Data of birthday</label> <input id="birthday" placeholder="DD/MM/YYYY" class="form-control" th:field="*{birthday}" />
+                        <p class="error-message" th:each="error : ${#fields.errors('birthday')}" th:text="${error}">Validation error</p>
+                    </div>
                     <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
                         <label for="email" class="control-label">E-mail</label> <input id="email" class="form-control" th:field="*{email}" />
                         <p class="error-message" th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation error

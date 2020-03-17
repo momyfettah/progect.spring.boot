@@ -1,6 +1,10 @@
 package net.java.springboot.springsecurity.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
@@ -15,6 +19,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+	private String birthday;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -27,19 +32,21 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String birthday ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.birthday= birthday;
     }
 
-    public User(String firstName, String lastName, String email, String password, Collection < Role > roles) {
+    public User(String firstName, String lastName, String email, String password, String birthday, Collection < Role > roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.birthday= birthday;
     }
 
     public Long getId() {
@@ -81,6 +88,14 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
 
     public Collection < Role > getRoles() {
         return roles;
@@ -97,6 +112,7 @@ public class User {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", birthday='" + birthday + '\'' +
             ", password='" + "*********" + '\'' +
             ", roles=" + roles +
             '}';
