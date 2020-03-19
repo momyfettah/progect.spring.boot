@@ -2,8 +2,11 @@ package net.java.springboot.springsecurity.model;
 
 import javax.persistence.*;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -20,6 +23,9 @@ public class User {
     private String email;
     private String password;
 	private String birthday;
+	
+	// Upload files. 
+    private Date filedata;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -32,21 +38,23 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password, String birthday ) {
+    public User(String firstName, String lastName, String email, String password, String birthday,Date filedata ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.birthday= birthday;
+        this.filedata= filedata;
     }
 
-    public User(String firstName, String lastName, String email, String password, String birthday, Collection < Role > roles) {
+    public User(String firstName, String lastName, String email, String password, String birthday, Date filedata , Collection < Role > roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
         this.birthday= birthday;
+        this.filedata= filedata;
     }
 
     public Long getId() {
@@ -95,6 +103,14 @@ public class User {
 
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+	
+	public Date GetFiledata() {
+		return filedata;
+	}
+	
+	public void setFileData(Date filedata) {
+		this.filedata= filedata;
 	}
 
     public Collection < Role > getRoles() {

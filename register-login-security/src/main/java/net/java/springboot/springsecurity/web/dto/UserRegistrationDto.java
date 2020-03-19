@@ -1,10 +1,14 @@
 package net.java.springboot.springsecurity.web.dto;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.annotation.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.java.springboot.springsecurity.constraint.FieldMatch;
 
@@ -36,6 +40,9 @@ public class UserRegistrationDto {
     @Email
     @NotEmpty
     private String confirmEmail;
+    
+    @Transient
+    private Date filedata;
 
     @AssertTrue
     private Boolean terms;
@@ -95,6 +102,14 @@ public class UserRegistrationDto {
     public void setConfirmEmail(String confirmEmail) {
         this.confirmEmail = confirmEmail;
     }
+    
+	public Date getFiledata() {
+		return filedata;
+	}
+	
+	public void setFileData(Date filedata) {
+		this.filedata= filedata;
+	}
 
     public Boolean getTerms() {
         return terms;
