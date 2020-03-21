@@ -21,4 +21,9 @@ public class MainController {
     public String userIndex() {
         return "user/index";
     }
+    
+    @GetMapping("/userAdmin")
+    public String userAdminAccess() {
+        return "";
+    }
 }

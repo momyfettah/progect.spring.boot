@@ -110,12 +110,12 @@
 					</div>
 
 					<div class="form-group"
-						th:classappend="${#fields.hasErrors('filedata')}? 'has-error':''">
-						<label for="filedata" class="control-label">
-						 foto profilo</label><input id="filedata" class="form-control"
-							type="file" th:field="*{filedata}" />
+						th:classappend="${#fields.hasErrors('image')}? 'has-error':''">
+						<label for="image" class="control-label">
+						 foto profilo</label><input id="image" class="form-control"
+							type="file" th:field="*{image}" />
 						<p class="error-message"
-							th:each="error : ${#fields.errors('filedata')}"
+							th:each="error : ${#fields.errors('image')}"
 							th:text="${error}">Validation error</p>
 					</div>
 

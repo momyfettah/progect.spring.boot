@@ -42,7 +42,10 @@ public class UserRegistrationDto {
     private String confirmEmail;
     
     @Transient
-    private Date filedata;
+    private byte[] image;
+    
+    @NotEmpty
+    private String typeImage;
 
     @AssertTrue
     private Boolean terms;
@@ -103,13 +106,22 @@ public class UserRegistrationDto {
         this.confirmEmail = confirmEmail;
     }
     
-	public Date getFiledata() {
-		return filedata;
+	public byte[] getImage() {
+		return image;
 	}
 	
-	public void setFileData(Date filedata) {
-		this.filedata= filedata;
+	public void setImage(byte[] image) {
+		this.image= image;
 	}
+	
+	public String getTypeImage() {
+		return typeImage;
+	}
+
+	public void setTypeImage(String typeImage) {
+		this.typeImage = typeImage;
+	}
+	
 
     public Boolean getTerms() {
         return terms;

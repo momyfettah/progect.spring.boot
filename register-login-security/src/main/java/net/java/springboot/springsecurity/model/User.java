@@ -25,7 +25,11 @@ public class User {
 	private String birthday;
 	
 	// Upload files. 
-    private Date filedata;
+	@Lob
+	private byte[] image;
+	
+
+	private String typeImage;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -38,23 +42,26 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password, String birthday,Date filedata ) {
+    public User(String firstName, String lastName, String email, String password, String birthday,byte[] image, String typeImage) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.birthday= birthday;
-        this.filedata= filedata;
+        this.image= image;
+        this.typeImage=typeImage;
     }
 
-    public User(String firstName, String lastName, String email, String password, String birthday, Date filedata , Collection < Role > roles) {
+    public User(String firstName, String lastName, String email, String password, String birthday, byte[] image , String typeImage, Collection < Role > roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
         this.birthday= birthday;
-        this.filedata= filedata;
+        this.image= image;
+        this.typeImage=typeImage;
+        
     }
 
     public Long getId() {
@@ -105,12 +112,20 @@ public class User {
 		this.birthday = birthday;
 	}
 	
-	public Date GetFiledata() {
-		return filedata;
+	public byte[] getImage() {
+		return image;
 	}
 	
-	public void setFileData(Date filedata) {
-		this.filedata= filedata;
+	public void setImage(byte[] image) {
+		this.image= image;
+	}
+	
+	public String getTypeImage() {
+		return typeImage;
+	}
+
+	public void setTypeImage(String typeImage) {
+		this.typeImage = typeImage;
 	}
 
     public Collection < Role > getRoles() {
