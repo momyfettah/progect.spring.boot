@@ -10,4 +10,12 @@ public interface UserService extends UserDetailsService {
     User findByEmail(String email);
 
     User save(UserRegistrationDto registration);
+    //parte implementata
+    Long count();
+    
+    void deleteById(Long userId);
+
+	
+	
+
 }

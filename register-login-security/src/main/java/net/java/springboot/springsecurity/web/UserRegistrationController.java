@@ -2,6 +2,8 @@ package net.java.springboot.springsecurity.web;
 
 import javax.validation.Valid;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.java.springboot.springsecurity.model.User;
 import net.java.springboot.springsecurity.service.UserService;
+import net.java.springboot.springsecurity.service.UserServiceImpl;
+import net.java.springboot.springsecurity.service.MailService;
 import net.java.springboot.springsecurity.web.dto.UserRegistrationDto;
+
 
 @Controller
 @RequestMapping("/registration")
@@ -21,6 +26,9 @@ public class UserRegistrationController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+	private MailService mailService;
 
     @ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {
@@ -34,7 +42,7 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
-        BindingResult result) {
+        BindingResult result) throws MessagingException {
 
         User existing = userService.findByEmail(userDto.getEmail());
         if (existing != null) {
@@ -46,6 +54,7 @@ public class UserRegistrationController {
         }
 
         userService.save(userDto);
-        return "redirect:/registration?success";
+        mailService.inviaMail(userDto.getEmail(), "ti sei appena registrato al nostro sito", "Registrazione effettuata correttamente");
+		return "index";
     }
 }
