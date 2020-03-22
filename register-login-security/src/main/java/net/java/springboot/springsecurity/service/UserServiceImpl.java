@@ -1,5 +1,7 @@
 package net.java.springboot.springsecurity.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -31,10 +33,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public User save(UserRegistrationDto registration) {
+    	
+    	
+    	
+    	
         User user = new User();
+        
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
-        user.setEmail(registration.getEmail());
+        user.setEmail(registration.getEmail()); 
         user.setBirthday(registration.getBirthday());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setImage(registration.getImage());

@@ -65,7 +65,7 @@ public class UserRegistrationController {
         }
 
         if (result.hasErrors()) {
-            return "registration";
+            return "error";
         }
 
         userService.save(userDto);

@@ -7,8 +7,10 @@ import java.time.LocalDate;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,8 +30,9 @@ public class UserRegistrationDto {
     private String lastName;
     
     
-    @NotEmpty
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
 	private LocalDate birthday;
 
     @NotEmpty

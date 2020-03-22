@@ -1,6 +1,9 @@
 package net.java.springboot.springsecurity.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,7 +24,8 @@ public class User {
     private String password;
     
     
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
 	private LocalDate birthday;
 	;
 	
