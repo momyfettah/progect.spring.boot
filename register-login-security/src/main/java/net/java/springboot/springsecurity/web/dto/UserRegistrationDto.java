@@ -1,6 +1,7 @@
 package net.java.springboot.springsecurity.web.dto;
 
-import java.sql.Date;
+
+
 import java.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
@@ -8,7 +9,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.Transient;
-import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 import net.java.springboot.springsecurity.constraint.FieldMatch;
 
@@ -24,8 +27,10 @@ public class UserRegistrationDto {
     @NotEmpty
     private String lastName;
     
+    
     @NotEmpty
-    private String birthday;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate birthday;
 
     @NotEmpty
     private String password;
@@ -66,13 +71,13 @@ public class UserRegistrationDto {
         this.lastName = lastName;
     }
     
-    public void setBirthday(String birthday) {
+    public LocalDate getBirthday() {
+		return birthday;
+	}
+    public void setBirthday( LocalDate birthday) {
 		this.birthday = birthday;
 	}
     
-    public String getBirthday() {
-		return birthday;
-	}
 
     public String getPassword() {
         return password;

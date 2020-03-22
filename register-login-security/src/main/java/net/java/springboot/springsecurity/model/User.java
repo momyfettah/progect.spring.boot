@@ -2,11 +2,8 @@ package net.java.springboot.springsecurity.model;
 
 import javax.persistence.*;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -22,7 +19,11 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-	private String birthday;
+    
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate birthday;
+	;
 	
 	// Upload files. 
 	@Lob
@@ -42,7 +43,7 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password, String birthday,byte[] image, String typeImage) {
+    public User(String firstName, String lastName, String email, String password, LocalDate birthday, byte[] image, String typeImage) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -52,7 +53,7 @@ public class User {
         this.typeImage=typeImage;
     }
 
-    public User(String firstName, String lastName, String email, String password, String birthday, byte[] image , String typeImage, Collection < Role > roles) {
+    public User(String firstName, String lastName, String email, String password,  LocalDate birthday, byte[] image , String typeImage, Collection < Role > roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -104,11 +105,11 @@ public class User {
         this.password = password;
     }
     
-    public String getBirthday() {
+    public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday( LocalDate birthday) {
 		this.birthday = birthday;
 	}
 	
