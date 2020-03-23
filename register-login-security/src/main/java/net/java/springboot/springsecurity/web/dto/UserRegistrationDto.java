@@ -52,7 +52,7 @@ public class UserRegistrationDto {
     @Transient
     private byte[] image;
     
-    @NotEmpty
+    //@NotEmpty
     private String typeImage;
 
     @AssertTrue

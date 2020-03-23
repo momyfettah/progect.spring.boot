@@ -68,7 +68,7 @@
 						th:classappend="${#fields.hasErrors('birthday')}? 'has-error':''">
 						<label for="birthday" class="control-label">Data of
 							birthday</label> <input id="birthday" placeholder="DD/MM/YYYY"
-							class="form-control" type="text" th:field="*{birthday}" autocomplete="off"/>
+							class="form-control" type="date" th:field="*{birthday}" autocomplete="off"/>
 						<p class="error-message"
 							th:each="error : ${#fields.errors('birthday')}"
 							th:text="${error}">Validation error</p>
