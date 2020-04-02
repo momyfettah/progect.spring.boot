@@ -1,64 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-   <title>Homepage</title>
+<title>Homepage</title>
 </head>
 
 <body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
+					Login Module</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<br>
 	<div class="container">
 		<h2>Home page</h2>
 		<h1 th:text="'Welcome, ' + ${authUser} + '!'">Welcome!</h1>
-		<img class="rounded-circle" th:src="${authUserImage} == null ? _ : @{'data:image/png;base64,'+${authUserImage}}" style="width:100px;">
+		<img class="rounded-circle"
+			th:src="${authUserImage} == null ? _ : @{'data:image/png;base64,'+${authUserImage}}"
+			style="width: 100px;">
 
 		<h2>Activity Form</h2>
 
 		<form action="#" th:action="@{/save}" th:object="${activity}"
 			method="post">
 			<p th:if="${successmessage}">
-              <a href="#">&times;</a>
-              <strong th:text="${successmessage}"></strong>
-          </p>			
+				<a href="#">&times;</a> <strong th:text="${successmessage}"></strong>
+			</p>
 			<input type="text" placeholder="Name activity"
 				th:field="*{activityTitle}"> <input
 				placeholder="Type of activity" th:field="*{type}" type="text">
 			<input placeholder="Description" th:field="*{description}"
-				type="text"> 
-			<input placeholder="Expired date"
-				th:field="*{expiredDate}" type="text"> <input type="hidden"
-				th:field="*{id}"> 
-			<input type="submit" value="Submit">
+				type="text"> <input placeholder="Expired date"
+				th:field="*{expiredDate}" type="text"> <input
+				type="hidden" th:field="*{id}"> <input type="submit"
+				value="Submit">
 		</form>
 
 		<h2>All Activities</h2>
-			<table style="width: 100%">
-				<thead>
-					<tr>
-						<th>Activity Title</th>
-						<th>Type of activity</th>
-						<th>Description of activity</th>
-						<th>Expired date</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="activity: ${activities}">
-						<td th:text="${activity.activityTitle}"></td>
-						<td th:text="${activity.type}"></td>
-						<td th:text="${activity.description}"></td>
-						<td th:text="${activity.expiredDate}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<table style="width: 100%">
+			<thead>
+				<tr>
+					<th>Activity Title</th>
+					<th>Type of activity</th>
+					<th>Description of activity</th>
+					<th>Expired date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="activity: ${activities}">
+					<td th:text="${activity.activityTitle}"></td>
+					<td th:text="${activity.type}"></td>
+					<td th:text="${activity.description}"></td>
+					<td th:text="${activity.expiredDate}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
-    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
 </body>
 

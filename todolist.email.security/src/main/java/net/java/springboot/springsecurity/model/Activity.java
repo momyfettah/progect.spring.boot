@@ -26,7 +26,7 @@ public class Activity {
 
 	private String description;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	private LocalDateTime expiredDate;
 
 	private boolean isCarryOut;

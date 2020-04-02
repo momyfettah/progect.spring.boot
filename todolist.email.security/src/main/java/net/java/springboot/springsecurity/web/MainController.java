@@ -64,7 +64,7 @@ public class MainController {
 	    User user = userService.findByEmail(auth.getName());   	    
 	    List<Activity> activities = user.getActivities();	    
 	    model.addAttribute("authUser", user.getEmail());
-	    model.addAttribute("authUserImage", Base64.getEncoder().encode(user.getImage()));
+	    model.addAttribute("authUserImage", Base64.getEncoder().encodeToString(user.getImage()));
         model.addAttribute("activities", activities);
         model.addAttribute("activity", new Activity());
         model.addAttribute("title", "Activities");    		    
