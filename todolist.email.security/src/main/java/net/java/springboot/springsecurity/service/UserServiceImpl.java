@@ -35,30 +35,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
     
-    /*
-    @Override
-	public User save(UserRegistrationDto registration) {
-		// TODO Auto-generated method stub
-	    User user = new User();
-	    user.setEmail(registration.getEmail()); 
-	    user.setPassword(passwordEncoder.encode(registration.getPassword()));
-		try {
-			user.setImage(registration.getImage().getBytes());
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-	    user.setRoles(Arrays.asList(new Role("USER")));
-	    return userRepository.save(user);
-	}
-	
-	*/
+
     
     
     public User save(UserRegistrationDto registration) {
-    	
-    	
-    	
     	
         User user = new User();
         
@@ -108,9 +88,8 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public void addActivities(User user, List<Activity> activities) {
-		
-		
-		
+	public void addActivities(User user, Activity activities) {
+		user.getActivities().add(activities);
+		userRepository.save(user);	
 	}
 }

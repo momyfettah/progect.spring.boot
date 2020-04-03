@@ -1,5 +1,7 @@
 package net.java.springboot.springsecurity.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,11 @@ public class ActivityServiceImpl implements ActivityService {
 
 	@Override
 	public Activity save(Activity activity) {
+		String date = activity.getDate();
+	    String expiredDate = date.replace("T", " ");
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
+	    LocalDateTime dateTime = LocalDateTime.parse(expiredDate, formatter);	
+	    activity.setExpiredDate(dateTime);	
 		
 		return  activityRepository.save(activity);
 	}

@@ -35,7 +35,7 @@ import net.java.springboot.springsecurity.service.UserService;
 @EnableScheduling
 @Controller
 public class MainController {
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -44,63 +44,71 @@ public class MainController {
 
 	@Autowired
 	private TaskScheduler scheduler;
-	
+
 	@Autowired
 	private MailService mailService;
 
-    @GetMapping("/")
-    public String root() {
-        return "index";
-    }
+	@GetMapping("/")
+	public String root() {
+		return "index";
+	}
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
+	@GetMapping("/login")
+	public String login(Model model) {
+		return "login";
+	}
 
-    @GetMapping("/user/home")
-    public String userIndex(Model model, Activity activity) throws MessagingException {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    User user = userService.findByEmail(auth.getName());   	    
-	    List<Activity> activities = user.getActivities();	    
-	    model.addAttribute("authUser", user.getEmail());
-	    model.addAttribute("authUserImage", Base64.getEncoder().encodeToString(user.getImage()));
-        model.addAttribute("activities", activities);
-        model.addAttribute("activity", new Activity());
-        model.addAttribute("title", "Activities");    		    
-        return "user/index";
-    }
-    
-    @PostMapping(value="/save")
-    public String save (@ModelAttribute Activity activity, RedirectAttributes redirectAttributes, Model model) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    User user = userService.findByEmail(auth.getName());   	
-	    activity.setUser(user);
-        Activity currActivity = activityService.save(activity);
-        List<Activity> activities = user.getActivities();
-        activities.add(currActivity);
-        userService.addActivities(user, activities);
-        if(currActivity != null) {
-            LocalDateTime date = currActivity.getExpiredDate();
+	@GetMapping("/user/home")
+	public String userIndex(Model model, Activity activity) throws MessagingException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findByEmail(auth.getName());
+		List<Activity> activities = user.getActivities();
+		model.addAttribute("authUser", user.getEmail());
+		model.addAttribute("authUserImage", Base64.getEncoder().encodeToString(user.getImage()));
+		model.addAttribute("activities", activities);
+		model.addAttribute("activity", new Activity());
+		model.addAttribute("title", "Activities");
+		return "user/index";
+	}
+
+	@PostMapping(value = "/save")
+	public String save(@ModelAttribute Activity activity, RedirectAttributes redirectAttributes, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findByEmail(auth.getName());
+		activity.setUser(user);
+		Activity currActivity = activityService.save(activity);
+
+		if (currActivity != null) {
+			LocalDateTime date = currActivity.getExpiredDate();
 			int minute = date.getMinute();
 			int hours = date.getHour();
 			int day = date.getDayOfMonth();
 			int month = date.getMonth().getValue();
-			String expression = " 0 " + (minute - 2) + " " + hours + " " + day + " " + month + " ?";
+
+			String expression = "";
+			if ((minute - 30) < 0) {
+				expression += " 0 " + (minute + 30) + " " + (hours - 1) + " " + day + " " + month + " ?";
+				if ((hours - 1) < 0) {
+					expression += " 0 " + (minute + 30) + " " + (hours + 23) + " " + day + " " + month + " ?";
+				}
+			} else {
+				expression += " 0 " + (minute - 30) + " " + hours + " " + day + " " + month + " ?";
+			}
+
 			CronTrigger trigger = new CronTrigger(expression, TimeZone.getTimeZone(TimeZone.getDefault().getID()));
 			MyRun myRunnable = new MyRun(currActivity, mailService);
-            redirectAttributes.addFlashAttribute("successmessage", "Activity is saved successfully");
-            scheduler.schedule(myRunnable, trigger);
-            return "redirect:/user/home";
-        }else {
-            model.addAttribute("errormessage", "Activity is not save, Please try again");
-            model.addAttribute("activity", activity);
-            return "user/index";
-        }
-    }
-    
-    @GetMapping("/userAdmin/home")
-    public String userAdminAccess() {
-        return "index";
-    }
+			redirectAttributes.addFlashAttribute("successmessage", "Activity is saved successfully");
+			scheduler.schedule(myRunnable, trigger);
+			return "redirect:/user/home";
+		} else {
+			model.addAttribute("errormessage", "Activity is not save, Please try again");
+			model.addAttribute("activity", activity);
+			return "user/index";
+		}
+	}
+
+	@GetMapping("/userAdmin/home")
+	public String userAdminAccess() {
+		return "index";
+	}
 }

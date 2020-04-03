@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Activity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	//@Column(name = "activity_id")
+	@Column(name = "activity_id")
 	private Long id;
 
 	private String activityTitle;
@@ -25,8 +25,12 @@ public class Activity {
 	private String type;
 
 	private String description;
+	
+	
+	
+	private String date;
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime expiredDate;
 
 	private boolean isCarryOut;
@@ -64,6 +68,14 @@ public class Activity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getDate() {
+		return date;
 	}
 
 	public LocalDateTime getExpiredDate() {

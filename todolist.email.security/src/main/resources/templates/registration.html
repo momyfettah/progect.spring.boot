@@ -42,7 +42,8 @@
 				</div>
 
 				<h1>Registration</h1>
-				<form th:action="@{/registration}" th:object="${user}" method="post" enctype="multipart/form-data">
+				<form th:action="@{/registration}" th:object="${user}" method="post"
+					enctype="multipart/form-data">
 
 					<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
 						th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
@@ -68,7 +69,8 @@
 						th:classappend="${#fields.hasErrors('birthday')}? 'has-error':''">
 						<label for="birthday" class="control-label">Data of
 							birthday</label> <input id="birthday" placeholder="DD/MM/YYYY"
-							class="form-control" type="date" th:field="*{birthday}" autocomplete="off"/>
+							class="form-control" type="date" th:field="*{birthday}"
+							autocomplete="off" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('birthday')}"
 							th:text="${error}">Validation error</p>
@@ -111,12 +113,11 @@
 
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('image')}? 'has-error':''">
-						<label for="image" class="control-label">
-						 foto profilo</label><input id="image" class="form-control"
-							type="file" th:field="*{image}" />
+						<label for="image" class="control-label"> foto profilo</label><input
+							id="image" class="form-control" type="file" th:field="*{image}" />
 						<p class="error-message"
-							th:each="error : ${#fields.errors('image')}"
-							th:text="${error}">Validation error</p>
+							th:each="error : ${#fields.errors('image')}" th:text="${error}">Validation
+							error</p>
 					</div>
 
 					<div class="form-group"

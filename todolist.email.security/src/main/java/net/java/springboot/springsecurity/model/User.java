@@ -38,25 +38,18 @@ public class User {
 
 	private String typeImage;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(
-            name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(
-            name = "role_id", referencedColumnName = "id"))
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection < Role > roles;
     
     
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "users_activities",
-    joinColumns = @JoinColumn(
-    		name = "user_id",  referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(
-    		name = "activity_id", referencedColumnName = "id"))
+    @JoinTable(name = "users_activities",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private List<Activity> activities;
 
+    
+    
     public User() {}
 
     public User(String firstName, String lastName, String email, String password, LocalDate birthday, byte[] image, String typeImage) {
@@ -69,7 +62,7 @@ public class User {
         this.typeImage=typeImage;
     }
     
-    
+    /*
 
     public User(String firstName, String lastName, String email, String password,  LocalDate birthday, byte[] image , String typeImage, Collection < Role > roles, List<Activity> activities) {
         this.firstName = firstName;
@@ -84,6 +77,7 @@ public class User {
         this.activities=activities;
         
     }
+    */
 
     public Long getId() {
         return id;

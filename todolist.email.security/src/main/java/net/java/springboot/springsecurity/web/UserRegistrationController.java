@@ -69,7 +69,7 @@ public class UserRegistrationController {
         }
 
         userService.save(userDto);
-        mailService.inviaMail(userDto.getEmail(), "ti sei appena registrato al nostro sito", "Registrazione effettuata correttamente");
+        mailService.inviaMail(userDto.getEmail(), "ciao bello ti sei appenna registrato al nostro bellixximo sito! :) ", "Registrazione effettuata correttamente");
 		return "confirm";
     }
     
